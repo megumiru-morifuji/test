@@ -24,10 +24,35 @@ get_header();
 						</p>
 					</div>
 
-                    <div class="entry-content">
-                        <?php the_content(); ?>
-                    </div>
+					<section>
+						<div class="section1">
+							<h2><?php the_field('heding_one'); ?></h2>
 
+						</div>
+						<div>
+							<div><?php the_field('edita1'); ?></div>
+						</div>
+					</section>
+					
+					<section>
+						<div class="section2">
+							<h2><?php the_field('heding_two'); ?></h2>
+
+						</div>
+						<div>
+							<div><?php the_field('edita2'); ?></div>
+						</div>
+					</section>
+					<section>
+						<div class="section3">
+							<h2><?php the_field('heding_three'); ?></h2>
+
+						</div>
+						<div>
+							<div><?php the_field('edita3'); ?></div>
+						</div>
+					</section>
+					
                     <?php if ( has_post_thumbnail() ) : ?>
                         <div class="post-thumbnail">
                             <?php the_post_thumbnail('large'); ?>
