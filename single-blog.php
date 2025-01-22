@@ -1,6 +1,27 @@
 <?php
 // WordPressのヘッダーを読み込む
 get_header();
+// 関数定義（ファイルの先頭付近に配置）
+function get_blog_headings() {
+    // ここで配列を定義
+    $heading_fields = array('heding_one', 'heding_two', 'heding_three');
+    $headings = array();
+    
+    foreach ($heading_fields as $field) {
+        $heading_text = get_field($field);
+        if (!empty($heading_text)) {
+            // フィールド名とテキストの両方を保存
+            $headings[] = array(
+                'id' => $field,
+                'text' => $heading_text
+            );
+        }
+    }
+    
+    return $headings;
+}
+
+
 ?>
 
 <main id="main" class="site-main">
@@ -12,7 +33,7 @@ get_header();
         ?>
                 <article class="article-contents" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<div>
-						<img src="<?php the_field('mainimg'); ?>" />
+						<img class="mainimg" src="<?php the_field('mainimg'); ?>" />
 					</div>
 					<div class="entry-meta">
                        <span><?php echo get_the_date('Y.m.d'); ?></span>
@@ -23,35 +44,69 @@ get_header();
 						<p><?php the_field('supplement'); ?>
 						</p>
 					</div>
-
-					<section>
-						<div class="section1">
-							<h2><?php the_field('heding_one'); ?></h2>
-
-						</div>
-						<div>
-							<div><?php the_field('edita1'); ?></div>
-						</div>
-					</section>
 					
-					<section>
-						<div class="section2">
-							<h2><?php the_field('heding_two'); ?></h2>
+					<?php 
+					// テンプレートファイルの任意の場所で
+					$headings = get_blog_headings();
 
-						</div>
-						<div>
-							<div><?php the_field('edita2'); ?></div>
-						</div>
-					</section>
-					<section>
-						<div class="section3">
-							<h2><?php the_field('heding_three'); ?></h2>
+					// 見出しを表示する例
+					// 目次を表示する部分
+$headings = get_blog_headings();
 
-						</div>
-						<div>
-							<div><?php the_field('edita3'); ?></div>
-						</div>
-					</section>
+if (!empty($headings)) {
+    echo '<div class="headings-list contents-index__list">';
+    echo '<p class="contents-index__ttl">目次</p>';
+    echo '<ul>';
+    foreach ($headings as $heading) {
+        echo '<li><a href="#' . $heading['id'] . '">' . esc_html($heading['text']) . '</a></li>';
+    }
+    echo '</ul>';
+    echo '</div>';
+}
+					?>
+					<?php 
+					// セクション1
+					if(get_field('heding_one')) : // heding_oneに値が存在する場合のみ表示
+					?>
+						<section>
+							<div class="section1">
+								<h2 id="heding_one"><?php the_field('heding_one'); ?></h2>
+
+							</div>
+							<div>
+								<div><?php the_field('edita1'); ?></div>
+							</div>
+						</section>
+					<?php endif; ?>
+					<?php
+					// セクション2
+					if(get_field('heding_two')) : // heding_twoに値が存在する場合のみ表示
+					?>
+						<section>
+							<div class="section2">
+								<h2 id="heding_two"><?php the_field('heding_two'); ?></h2>
+
+							</div>
+							<div>
+								<div><?php the_field('edita2'); ?></div>
+							</div>
+						</section>
+					<?php endif; ?>
+					
+					<?php 
+					// セクション3
+					if(get_field('heding_three')) : // heding_threeに値が存在する場合のみ表示
+					?>
+						<section>
+							<div class="section3">
+								<h2 id="heding_three"><?php the_field('heding_three'); ?></h2>
+
+							</div>
+							<div>
+								<div><?php the_field('edita3'); ?></div>
+							</div>
+						</section>
+					<?php endif; ?>
 					
                     <?php if ( has_post_thumbnail() ) : ?>
                         <div class="post-thumbnail">
@@ -59,10 +114,10 @@ get_header();
                         </div>
                     <?php endif; ?>
 
-                    <div class="post-navigation">
+<!--                     <div class="post-navigation">
                         <div class="prev"><?php previous_post_link('&laquo; %link', '前の記事'); ?></div>
                         <div class="next"><?php next_post_link('%link &raquo;', '次の記事'); ?></div>
-                    </div>
+                    </div> -->
                 </article>
         <?php
             endwhile;
