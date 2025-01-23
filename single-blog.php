@@ -51,26 +51,33 @@ function get_blog_headings() {
 
 					// 見出しを表示する例
 					// 目次を表示する部分
-$headings = get_blog_headings();
+					$headings = get_blog_headings();
 
-if (!empty($headings)) {
-    echo '<div class="headings-list contents-index__list">';
-    echo '<p class="contents-index__ttl">目次</p>';
-    echo '<ul>';
-    foreach ($headings as $heading) {
-        echo '<li><a href="#' . $heading['id'] . '">' . esc_html($heading['text']) . '</a></li>';
-    }
-    echo '</ul>';
-    echo '</div>';
-}
+					if (!empty($headings)) {
+						echo '<div class="headings-list contents-index__list">';
+						echo '<p class="contents-index__ttl">目次</p>';
+						echo '<ul>';
+						foreach ($headings as $heading) {
+							echo '<li><a href="#' . $heading['id'] . '">' . esc_html($heading['text']) . '</a></li>';
+						}
+						echo '</ul>';
+						echo '</div>';
+					}
 					?>
-					<?php 
+					
+					<div>
+						<p><?php the_field('index_bottom_textarea'); ?>
+							
+						</p>
+					</div>
+					
+						<?php 
 					// セクション1
 					if(get_field('heding_one')) : // heding_oneに値が存在する場合のみ表示
 					?>
-						<section>
+						<section id="heding_one">
 							<div class="section1">
-								<h2 id="heding_one"><?php the_field('heding_one'); ?></h2>
+								<h2 ><?php the_field('heding_one'); ?></h2>
 
 							</div>
 							<div>
@@ -82,9 +89,9 @@ if (!empty($headings)) {
 					// セクション2
 					if(get_field('heding_two')) : // heding_twoに値が存在する場合のみ表示
 					?>
-						<section>
+						<section id="heding_two">
 							<div class="section2">
-								<h2 id="heding_two"><?php the_field('heding_two'); ?></h2>
+								<h2 ><?php the_field('heding_two'); ?></h2>
 
 							</div>
 							<div>
@@ -97,9 +104,9 @@ if (!empty($headings)) {
 					// セクション3
 					if(get_field('heding_three')) : // heding_threeに値が存在する場合のみ表示
 					?>
-						<section>
+						<section id="heding_three">
 							<div class="section3">
-								<h2 id="heding_three"><?php the_field('heding_three'); ?></h2>
+								<h2 ><?php the_field('heding_three'); ?></h2>
 
 							</div>
 							<div>
@@ -107,6 +114,7 @@ if (!empty($headings)) {
 							</div>
 						</section>
 					<?php endif; ?>
+					
 					
                     <?php if ( has_post_thumbnail() ) : ?>
                         <div class="post-thumbnail">
@@ -185,6 +193,30 @@ if (!empty($headings)) {
     </div>
 	
 </main>
+<!-- <script>
+	jQuery(document).ready(function() {
+		console.log("読み込みさ れました");
+      jQuery('a[href^="#"]').on('click', function(event) {
+     console.log("クリックさ れました");
+        // デフォルトの動作を防止
+        event.preventDefault();
+        
+        // クリックされたリンクのhref属性（リンク先のID）を取得
+        var targetId = jQuery(this).attr('href');
+        
+        // リンク先の要素を取得
+        var $targetElement = $(targetId);
+        
+        if ($targetElement.length) {
+            // 要素をブラウザウィンドウの一番上に持ってくる
+            jQuery('html, body').animate({
+                // スクロール位置を要素の上端に設定
+                scrollTop: $targetElement.offset().top
+            }, 500); // アニメーション時間（ミリ秒）
+        }
+    });
+});
+</script> -->
 
 <?php
 // WordPressのフッターを読み込む
