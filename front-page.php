@@ -12,7 +12,7 @@ Template Name: フロントページ
 			<img src="http://megumiru.jp/wine/wp-content/uploads/2025/01/art-7917562_1280.jpg">
 		</div>
 	<div class="box-text">
-		<h3>ワインと絵画を融合させた<br>新しいライフスタイル</h3>
+		<h3>ワイン片手にアートを描く<br>新スタイルのアクティビティ</h3>
     </div>
 	</div>
 	
@@ -22,12 +22,18 @@ Template Name: フロントページ
     <div class="blog-wrap">
 		<div class="posts-grid">
         <?php
-        $args = array(
-            'post_type' => 'blog', // カスタム投稿タイプ名
-            'posts_per_page' => 6, // 表示する記事数
-            'orderby' => 'date',   // 日付順
-            'order' => 'DESC'      // 降順（最新順）
-        );
+			/* ページネーション用の変数設定 */
+
+/* パラメーター設定 */
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$args = array(
+    'post_type' => 'blog', // カスタム投稿タイプ名
+    'posts_per_page' => 6, // 表示する記事数
+    'orderby' => 'date',   // 日付順
+    'order' => 'DESC',     // 降順（最新順）
+    'post_status'=> 'publish', // 公開状態を選択
+    'paged' => $paged // ページネーション用設定
+);
         $blog_query = new WP_Query($args);
         
         if ($blog_query->have_posts()) :
@@ -53,14 +59,32 @@ Template Name: フロントページ
                     <?php endif; ?>
                 </div>
             </article>
-        <?php
-            endwhile;
+			 
+        
+   
+
+		<?php
+			
+            endwhile; ?>
+			
+				
+			</div>
+	<?php 		/* ページネーションがあるかどうかを確認 */
+if ($blog_query->max_num_pages > 1){
+    /* ページネーションを表示 */
+    $big = 999999999999; 
+    echo paginate_links(array(
+        'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))), // ベースURLをセットします。
+        'format' => '?paged=%#%', // ページ番号のフォーマット
+        'current' => max(1, get_query_var('paged')), // 現在のページ番号
+        'total' => $blog_query->max_num_pages // 総ページ数
+    ));
+}
             wp_reset_postdata();
         endif;
         ?>
     </div>
-	</div>
-    
+			
 </section>
     <div class="container">
 <!--         <!-- ヒーローセクション -->
@@ -142,6 +166,39 @@ Template Name: フロントページ
             </div>
         </section> -->
     </div>
+	<div class="c-section section-about">
+        <div class="c-section__body">
+          <h2 class="c-title">
+            About
+          </h2>
+			<p>
+				Paint & Sipマガジンとは
+			</p>
+          <p class="u-center">シップ（お酒などをちびちびもむ）をしながらペイント（絵画）を描くという新しいスタイル、paintShip。
+自己発見や、リラクゼーション、企業のチームビルディングなどあらゆる場面で活躍しています。
+その魅力を知っていただくために、当ブログではPaint＆Sip に関する疑問や歴史などあらゆる有益な情報をお伝えします。
+
+</p>
+    
+        </div>
+      </div>
+	
+	<div class="c-section section-about">
+        <div class="c-section__body">
+          <h2 class="c-title">
+            Writer
+          </h2>
+			<p>Paint＆Sip JAPAN
+</p>
+          <p class="u-center">Paint＆Sip JAPANは、Paint＆Sip を気軽に体験できる場所「artwinebarNAGOYA」を提供しています。
+
+
+
+
+</p>
+    
+        </div>
+      </div>
 </main>
 
 <?php get_footer(); ?>
