@@ -8,6 +8,69 @@ Tags:
 Version: 0.6.1
 */
 
+.obj{
+	object-fit:cover;
+	width:100%;
+	height:500px;
+}
+
+.obj img{
+	object-fit:cover;
+	width:100%;
+	height:500px;
+}
+
+img{
+	max-width: 100%;
+    height: 500px;
+    object-fit: cover;
+
+	
+}
+.home .c-section__body{
+	text-align:center;
+}
+.yobikomi{
+	padding:25px 0;
+	background:#dcf3f6;
+	margin-top:1.607142857rem;
+}
+
+.susume{
+/* 	background:gray; */
+}
+.tyousei{
+margin-top:5px;
+}
+ .text{
+	padding:1px 0;
+	color:#575757;
+	width:94%;
+	background:#FFF;
+	margin:0 auto;
+}
+
+.text a:link{
+	color:#575757;
+} 
+.sen{
+	color:gray;
+}
+
+.linkbot{
+	display:flex;
+	flex-wrap:nowrap;
+	margin-left:37%;
+/* 	text-align:center;
+	justify-content:underline; */
+	color:#575757;
+}
+.yaji{
+	color:#f08200; 
+} 
+.obj1{
+	object-fit:cover;
+}
 .single-blog{
 	
     font-family: "Noto Sans JP", sans-serif!important;
@@ -16,7 +79,9 @@ Version: 0.6.1
 
 /* 追加するCSS */
 
-
+.sukima{
+	height:800px;
+}
 .home .main-slide{
 	display: flex !important;
 	filter: brightness(113%) !important;
@@ -98,8 +163,8 @@ Version: 0.6.1
 
 .home .mainimge img{
 	object-fit: cover;
-    aspect-ratio: 5 / 3.5;
-	    height: calc(100vh - 88px);
+    
+	    height: calc(100vh - 396px);
 }
 
 .single-blog .entry-meta{
