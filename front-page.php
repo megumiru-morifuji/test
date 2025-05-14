@@ -16,25 +16,27 @@ Template Name: フロントページ
     </div>
 	</div>
 	
-	<!-- ブログ最新記事セクション -->
+	<div class="sayuu-flex">
+		<div class="main-left">
+			<!-- ブログ最新記事セクション -->
 <section class="blog-latest-posts">
 	<div class="ttl"><h2>View</h2></div>
     <div class="blog-wrap">
 		<div class="posts-grid">
         <?php
-        /* ページネーション用の変数設定 - フロントページ対応版 */
-        // フロントページでは'page'パラメータを使用、それ以外では'paged'を使用
-        $paged = (is_front_page()) ? get_query_var('page') : get_query_var('paged');
-        $paged = ($paged) ? $paged : 1; // 値がない場合は1を設定
+//         /* ページネーション用の変数設定 - フロントページ対応版 */
+//         // フロントページでは'page'パラメータを使用、それ以外では'paged'を使用
+//         $paged = (is_front_page()) ? get_query_var('page') : get_query_var('paged');
+//         $paged = ($paged) ? $paged : 1; // 値がない場合は1を設定
 
         /* パラメーター設定 */
         $args = array(
             'post_type' => 'blog', // カスタム投稿タイプ名
-            'posts_per_page' => 12, // 表示する記事数
+            'posts_per_page' => 4, // 表示する記事数
             'orderby' => 'date',   // 日付順
             'order' => 'DESC',     // 降順（最新順）
-            'post_status'=> 'publish', // 公開状態を選択
-            'paged' => $paged // ページネーション用設定
+            'post_status'=> 'publish' // 公開状態を選択
+//             'paged' => $paged // ページネーション用設定
         );
         
         $blog_query = new WP_Query($args);
@@ -43,7 +45,7 @@ Template Name: フロントページ
             while ($blog_query->have_posts()) : $blog_query->the_post();
             
             // 使用するタクソノミーのリスト
-            $taxonomies = array('ship', 'entry_preparation','event_style','japan_opportunities','price_guide','business_education','usage_scene'); // 必要に応じて追加や変更
+            $taxonomies = array('ship', 'entry_preparation','event_style','japan_opportunities','price_guide','business_education','usage_scene','mind_body_effects'); // 必要に応じて追加や変更
             $all_terms = array();
             
             // すべてのタクソノミーからタームを収集
@@ -86,33 +88,33 @@ Template Name: フロントページ
             endwhile; ?>
 			</div>
 	<?php
-        /* ページネーションがあるかどうかを確認 */
-        if ($blog_query->max_num_pages > 1) {
-            /* ページネーションを表示 - フロントページ対応版 */
-            $big = 999999999;
+//         /* ページネーションがあるかどうかを確認 */
+//         if ($blog_query->max_num_pages > 1) {
+//             /* ページネーションを表示 - フロントページ対応版 */
+//             $big = 999999999;
             
-            // フロントページ用のページネーションパラメータ調整
-            if (is_front_page()) {
-                $pagination_base = str_replace($big, '%#%', esc_url(get_pagenum_link($big)));
-                // WordPressがフロントページで/page/2/形式を使用するようにする
-                $pagination_base = str_replace('/\?page=', '/page/', $pagination_base);
+//             // フロントページ用のページネーションパラメータ調整
+//             if (is_front_page()) {
+//                 $pagination_base = str_replace($big, '%#%', esc_url(get_pagenum_link($big)));
+//                 // WordPressがフロントページで/page/2/形式を使用するようにする
+//                 $pagination_base = str_replace('/\?page=', '/page/', $pagination_base);
                 
-                echo paginate_links(array(
-                    'base' => $pagination_base,
-                    'format' => is_front_page() ? '/page/%#%/' : '?paged=%#%',
-                    'current' => max(1, $paged),
-                    'total' => $blog_query->max_num_pages
-                ));
-            } else {
-                // 通常のページネーション
-                echo paginate_links(array(
-                    'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-                    'format' => '?paged=%#%',
-                    'current' => max(1, $paged),
-                    'total' => $blog_query->max_num_pages
-                ));
-            }
-        }
+//                 echo paginate_links(array(
+//                     'base' => $pagination_base,
+//                     'format' => is_front_page() ? '/page/%#%/' : '?paged=%#%',
+//                     'current' => max(1, $paged),
+//                     'total' => $blog_query->max_num_pages
+//                 ));
+//             } else {
+//                 // 通常のページネーション
+//                 echo paginate_links(array(
+//                     'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+//                     'format' => '?paged=%#%',
+//                     'current' => max(1, $paged),
+//                     'total' => $blog_query->max_num_pages
+//                 ));
+//             }
+//         }
         
         wp_reset_postdata();
         endif;
@@ -124,7 +126,7 @@ Template Name: フロントページ
     <!-- コメントアウトされた部分は省略しています -->
     </div>
 	
-	<div class="c-section section-about">
+<!-- 	<div class="c-section section-about">
         <div class="c-section__body">
           <h2 class="c-title">
             About
@@ -139,7 +141,7 @@ Template Name: フロントページ
 </p>
     
         </div>
-      </div>
+      </div> -->
 	
 	<div class="c-section section-about">
         <div class="c-section__body">
@@ -157,6 +159,14 @@ Template Name: フロントページ
     
         </div>
       </div>
+		</div>
+		<div class="main-right">
+			kategori
+		</div>
+		
+		</div>
+	
+	
 </main>
 
 <?php get_footer(); ?>
